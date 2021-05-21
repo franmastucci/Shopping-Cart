@@ -1,24 +1,36 @@
-import React from 'react';
-import './Product.css';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
+import {DataContext} from './Context'
+import './Products.css'
 
-const Product = ({ imageUrl, description, price, name, productId }) => {
-    return (
-      <div className="product">
-        <img src={imageUrl} alt={name}/>
-            
-            <div className = "product-info">
-                <p className = "info-name">{name}</p>
-                <p className = "info-description">{description.substring(0, 100)}...</p>
-                <p className = "product-name"></p>
+export class Product extends Component {
 
-                <p className = "info-price"> ${price}</p>
-                <Link to={`/product/${productId}`} className="info-button">
-                View
-                </Link>
+    static contextType = DataContext;
+
+    render() {
+        const {products,addCart} = this.context;
+        return (
+            <div id="product">
+               {
+                   products.map(product =>(
+                       <div className="card" key={product._id}>
+                           <Link to={`/product/${product._id}`}>
+                               <img src={product.src} alt=""/>
+                           </Link>
+                           <div className="content">
+                               <h3>
+                                   <Link to={`/product/${product._id}`}>{product.title}</Link>
+                               </h3>
+                               <span>${product.price}</span>
+                               <p>{product.description}</p>
+                               <button onClick={()=> addCart(product._id)}>Add to cart</button>
+                           </div>
+                       </div>
+                   ))
+               }
             </div>
-        </div> 
-    );
-};
+        )
+    }
+}
 
-export default Product;
+export default Product
