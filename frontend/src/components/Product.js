@@ -1,36 +1,30 @@
-import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
-import {DataContext} from './Context'
-import './Products.css'
+import React from 'react';
+import './Product.css';
+import {Link} from 'react-router-dom';
 
-export class Product extends Component {
+const Product = () => {
+    return (
+        <div className = "product">
+            <img src = "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80" 
+                        alt ="product name "/>
 
-    static contextType = DataContext;
+            <div className = "product-info">
+                <p className = "info-name">Lorem Ipsum</p>
+                <p className = "info-description">
+Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
+                </p>
+                <p className = "product-name"></p>
 
-    render() {
-        const {products,addCart} = this.context;
-        return (
-            <div id="product">
-               {
-                   products.map(product =>(
-                       <div className="card" key={product._id}>
-                           <Link to={`/product/${product._id}`}>
-                               <img src={product.src} alt=""/>
-                           </Link>
-                           <div className="content">
-                               <h3>
-                                   <Link to={`/product/${product._id}`}>{product.title}</Link>
-                               </h3>
-                               <span>${product.price}</span>
-                               <p>{product.description}</p>
-                               <button onClick={()=> addCart(product._id)}>Add to cart</button>
-                           </div>
-                       </div>
-                   ))
-               }
+                <p className = "info-price"> $499.99</p>
+                <Link to={`/product/${11111}`} className="info-button">
+                View
+                </Link>
             </div>
-        )
-    }
+        </div>
+
+
+
+    )
 }
 
-export default Product
+export default Product;
